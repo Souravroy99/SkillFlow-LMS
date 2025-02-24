@@ -77,13 +77,11 @@ const Navbar = () => {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuGroup>
                                     <DropdownMenuItem>
-                                        {/* <Link to="my-learning">My learning</Link> */}
-                                        <p>My learning</p>
+                                        <Link to="/my-learning">My learning</Link>
                                     </DropdownMenuItem>
                                     <DropdownMenuItem>
                                         {" "}
-                                        {/* <Link to="profile">Edit Profile</Link>{" "} */}
-                                        <p>Edit Profile</p>
+                                        <Link to="profile">Edit Profile</Link>{" "}
 
                                     </DropdownMenuItem>
                                     <DropdownMenuItem>
