@@ -41,7 +41,7 @@ const Login = () => {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const changeInputHandler = (e, type) => {
     const { name, value } = e.target;
@@ -68,10 +68,10 @@ const Login = () => {
     }
     if(loginIsSuccess && loginData){
       toast.success(loginData.message || "Login successful.");
-      // navigate("/");
+      navigate("/");
     }
     if(loginError){ 
-      toast.error(loginError.data.message || "login Failed");
+      toast.error(loginError.data || "login Failed");
     }
   }, [
     loginIsLoading,
@@ -105,7 +105,7 @@ const Login = () => {
                   name="name"
                   value={signupInput.name}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="Eg. patel"
+                  placeholder="Eg. Sourav"
                   required="true"
                 />
               </div>
@@ -116,7 +116,7 @@ const Login = () => {
                   name="email"
                   value={signupInput.email}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="Eg. patel@gmail.com"
+                  placeholder="Eg. souravroy@gmail.com"
                   required="true"
                 />
               </div>
@@ -127,7 +127,7 @@ const Login = () => {
                   name="password"
                   value={signupInput.password}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="Eg. xyz"
+                  placeholder="Eg. xyz123"
                   required="true"
                 />
               </div>
@@ -165,7 +165,7 @@ const Login = () => {
                   name="email"
                   value={loginInput.email}
                   onChange={(e) => changeInputHandler(e, "login")}
-                  placeholder="Eg. patel@gmail.com"
+                  placeholder="Eg. souravroy@gmail.com"
                   required="true"
                 />
               </div>
@@ -176,7 +176,7 @@ const Login = () => {
                   name="password"
                   value={loginInput.password}
                   onChange={(e) => changeInputHandler(e, "login")}
-                  placeholder="Eg. xyz"
+                  placeholder="Eg. xyz123"
                   required="true"
                 />
               </div>
