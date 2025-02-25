@@ -24,27 +24,27 @@ import {
 } from "./ui/sheet";
 // import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
-// import { useLogoutUserMutation } from "@/features/api/authApi";
+import { useLogoutUserMutation } from "@/features/api/authApi";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-    const user = true
+    const {user} = useSelector(store => store.auth) 
     const role = "instructor"
 
     //   useSelector((store) => store.auth);
-    //   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
-    //   const navigate = useNavigate();
-    //   const logoutHandler = async () => {
-    //     await logoutUser();
-    //   };
+    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
+    const navigate = useNavigate();
+    const logoutHandler = async () => {
+        await logoutUser();
+    };
 
-    //   useEffect(() => {
-    //     if (isSuccess) {
-    //       toast.success(data?.message || "User log out.");
-    //       navigate("/login");
-    //     }
-    //   }, [isSuccess]);
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success(data?.message || "User log out.");
+            navigate("/login");
+        }
+    }, [isSuccess]);
 
     return (
         <div className="h-16 dark:bg-[#020817] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
@@ -84,8 +84,8 @@ const Navbar = () => {
                                         <Link to="profile">Edit Profile</Link>{" "}
 
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        {/* onClick={logoutHandler} */}
+                                    <DropdownMenuItem
+                                        onClick={logoutHandler}>
                                         Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>

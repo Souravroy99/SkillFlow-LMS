@@ -11,7 +11,7 @@ export const appStore = configureStore({
     // , courseApi.middleware, purchaseApi.middleware, courseProgressApi.middleware)
 });
 
-// const initializeApp = async () => {
-//     await appStore.dispatch(authApi.endpoints.loadUser.initiate({},{forceRefetch:true}))
-// }
-// initializeApp();
+const initializeApp = async () => {
+    await appStore.dispatch(authApi.endpoints.loadUser.initiate({},{forceRefetch:true}))
+}
+initializeApp();
