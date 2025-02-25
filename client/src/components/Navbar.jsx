@@ -29,12 +29,13 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-    const {user} = useSelector(store => store.auth) 
+    const { user } = useSelector(store => store.auth)
     const role = "instructor"
 
     //   useSelector((store) => store.auth);
-    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
     const navigate = useNavigate();
+
+    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
     const logoutHandler = async () => {
         await logoutUser();
     };
@@ -53,24 +54,32 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full">
                 <div className="flex items-center gap-2">
                     <School size={"30"} />
-                    {/* <Link to="/"> */}
-                    <h1 className="hidden md:block font-extrabold text-2xl">
-                        SkillFlow
-                    </h1>
-                    {/* </Link> */}
+                    <Link to="/">
+                        <h1 className="hidden md:block font-extrabold text-2xl">
+                            SkillFlow
+                        </h1>
+
+                    </Link>
                 </div>
+
 
                 <div className="flex items-center gap-8">
                     {user ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Avatar>
-                                    <AvatarImage
-                                        src={user?.photoUrl || "https://github.com/shadcn.png"}
-                                        alt="@STROY"
-                                    />
-                                    <AvatarFallback>SF</AvatarFallback>
-                                </Avatar>
+                                <>
+                                    <h2 className="font-normal text-xl" style={{ fontFamily: "Open Sans, sans-serif" }}>
+                                        {user.name}
+                                    </h2>
+
+                                    <Avatar>
+                                        <AvatarImage
+                                            src={user?.photoUrl || "https://github.com/shadcn.png"}
+                                            alt="@STROY"
+                                        />
+                                        <AvatarFallback>SF</AvatarFallback>
+                                    </Avatar>
+                                </>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -89,7 +98,7 @@ const Navbar = () => {
                                         Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
-                                {role === "instructor" && (
+                                {user.role === "instructor" && (
                                     <>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem>Dashboard</DropdownMenuItem>
@@ -112,9 +121,7 @@ const Navbar = () => {
 
             <div className="flex md:hidden items-center justify-between px-4 h-full">
                 <h1 className="font-extrabold text-2xl">SkillFlow</h1>
-                <MobileNavbar />
-
-                {/* user={user}/> */}
+                <MobileNavbar user={user} />
             </div>
         </div>
     );
@@ -122,9 +129,19 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = () => {
-    // const navigate = useNavigate();
-    const role = "instructor"
+const MobileNavbar = ({ user }) => {
+    const navigate = useNavigate();
+    const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
+    const logoutHandler = async () => {
+        await logoutUser();
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success(data?.message || "User log out.");
+            navigate("/login");
+        }
+    }, [isSuccess]);
 
     return (
         <Sheet>
@@ -144,20 +161,22 @@ const MobileNavbar = () => {
                 </SheetHeader>
                 {/* <Separator className="mr-2" /> */}
                 <nav className="flex flex-col space-y-4">
-                    {/* <Link to="/my-learning">My Learning</Link>
-                    <Link to="/profile">Edit Profile</Link> */}
-                    <p>My Learning</p>
-                    <p>Edit Profile</p>
-                    <p>Log out</p>
+                    <Link to="/my-learning">My Learning</Link>
+                    <Link to="/profile">Edit Profile</Link>
+                    <button onClick={logoutHandler} >Log out</button>
 
                 </nav>
 
-                {role === "instructor" && (
+                {user.role === "instructor" && (
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button type="submit">
-                                {/* onClick={() => navigate("/admin/dashboard")}> */}
-                                Dashboard</Button>
+                            {user.role === "instructor" && (
+
+                                <Button type="submit">
+                                    {/* onClick={() => navigate("/admin/dashboard")}> */}
+                                    Dashboard
+                                </Button>
+                            )}
                         </SheetClose>
                     </SheetFooter>
                 )}

@@ -20,8 +20,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Login = () => {
-  const [signupInput, setSignupInput] = useState({name: "", email: "", password: ""}) ;
-  const [loginInput, setLoginInput] = useState({email: "", password: "" }) ;
+  const [signupInput, setSignupInput] = useState({ name: "", email: "", password: "" });
+  const [loginInput, setLoginInput] = useState({ email: "", password: "" });
 
   const [
     registerUser,
@@ -60,27 +60,29 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(registerIsSuccess && registerData){
-      toast.success(registerData.message || "Signup successful.")
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
     }
-    if(registerError){
-      toast.error(registerError.data.message || "Signup Failed");
+    if (registerError) {
+      toast.error(registerError?.data?.message || "Signup Failed");
     }
-    if(loginIsSuccess && loginData){
+    if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
-    if(loginError){ 
-      toast.error(loginError.data || "login Failed");
+    if (loginError) {
+        toast.error(loginError?.data?.message || "Login Failed");
+        navigate("/login");
     }
   }, [
-    loginIsLoading,
-    registerIsLoading,
+    loginIsSuccess,
+    registerError,
     loginData,
     registerData,
     loginError,
     registerError,
   ]);
+
 
   return (
     <div className="flex items-center w-full justify-center mt-20">

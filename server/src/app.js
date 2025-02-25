@@ -13,9 +13,13 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-
+// APIs
 import userRouter from "./routes/user.route.js"
+import courseRouter from "./routes/course.route.js"
+
 app.use("/api/v1/user", userRouter)
+app.use("/api/v1/course", courseRouter)
+
 
 
 export default app
