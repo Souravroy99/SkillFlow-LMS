@@ -66,20 +66,17 @@ const Navbar = () => {
                 <div className="flex items-center gap-8">
                     {user ? (
                         <DropdownMenu>
+                            <h2 className="font-normal text-xl" style={{ fontFamily: "Open Sans, sans-serif" }}>
+                                {user.name}
+                            </h2>
                             <DropdownMenuTrigger asChild>
-                                <>
-                                    <h2 className="font-normal text-xl" style={{ fontFamily: "Open Sans, sans-serif" }}>
-                                        {user.name}
-                                    </h2>
-
-                                    <Avatar>
-                                        <AvatarImage
-                                            src={user?.photoUrl || "https://github.com/shadcn.png"}
-                                            alt="@STROY"
-                                        />
-                                        <AvatarFallback>SF</AvatarFallback>
-                                    </Avatar>
-                                </>
+                                <Avatar>
+                                    <AvatarImage
+                                        src={user?.photoUrl || "https://github.com/shadcn.png"}
+                                        alt="@STROY"
+                                    />
+                                    <AvatarFallback>SF</AvatarFallback>
+                                </Avatar>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -167,7 +164,7 @@ const MobileNavbar = ({ user }) => {
 
                 </nav>
 
-                {user.role === "instructor" && (
+                {user?.role === "instructor" && (
                     <SheetFooter>
                         <SheetClose asChild>
                             {user.role === "instructor" && (

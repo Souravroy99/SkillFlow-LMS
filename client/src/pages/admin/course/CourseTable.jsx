@@ -24,6 +24,8 @@ const CourseTable = () => {
         refetch()
     }, [])
 
+    // console.log(data) ;
+
     if(isLoading) return <h1>Loading...</h1>
 
     return (
@@ -41,12 +43,12 @@ const CourseTable = () => {
                 </TableHeader>
                 <TableBody>
                     {data.courses.map((course) => (
-                        <TableRow key={course.id}>
-                            <TableCell>{course?.coursePrice || "NA"}</TableCell>
+                        <TableRow key={course._id}>
+                            <TableCell>₹{course?.coursePrice || "NA"}</TableCell>
                             <TableCell> <Badge>{course?.isPublished ? "Published" : "Draft"}</Badge> </TableCell>
                             <TableCell className="font-medium">{course.courseTitle}</TableCell>
                             <TableCell className="text-right">
-                                <Button size='sm' variant='outline' ><Edit/></Button>
+                                <Button size='sm' variant='outline' onClick={() => navigate(`${course._id}`)}><Edit/></Button>
                             </TableCell>
                         </TableRow>
                     ))}

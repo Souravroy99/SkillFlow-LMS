@@ -138,7 +138,7 @@ export const updateProfile = async (req, res) => {
         if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "user not found"
+                message: "User not found"
             })
         }
 
@@ -148,7 +148,7 @@ export const updateProfile = async (req, res) => {
             // console.log(user.photoUrl.split('/')) ;
             // console.log(` --> `, publicId) ;
 
-            deleteMediaFromCloudinary(publicId)
+            await deleteMediaFromCloudinary(publicId)
         }
 
         const cloudResponse = await uploadMedia(profilePhoto.path)

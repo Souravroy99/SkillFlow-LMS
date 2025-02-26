@@ -21,7 +21,7 @@ const AddCourse = () => {
     const [category, setCategory] = useState("");
     const [coursePrice, setCoursePrice] = useState("");
 
-    
+
     const [createCourse, { data, isLoading, error, isSuccess }] = useCreateCourseMutation();
 
     const navigate = useNavigate();
@@ -53,6 +53,7 @@ const AddCourse = () => {
                 </p>
 
             </div>
+            
             <div className="space-y-4">
                 <div>
                     <Label>Title</Label>
@@ -63,7 +64,7 @@ const AddCourse = () => {
                         placeholder="Your Course Name"
                     />
                 </div>
-                
+
                 <div>
                     <Label>Category</Label>
                     <Select
@@ -78,6 +79,9 @@ const AddCourse = () => {
                                 <SelectItem value="Data Science">Data Science</SelectItem>
                                 <SelectItem value="Frontend Development">
                                     Frontend Development
+                                </SelectItem>
+                                <SelectItem value="Backend Development">
+                                    Backend Development
                                 </SelectItem>
                                 <SelectItem value="Fullstack Development">
                                     Fullstack Development

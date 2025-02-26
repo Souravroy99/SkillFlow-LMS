@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="hidden lg:block w-[220px] sm:w-[250px] bg-gray-100 border-r border-gray-300 p-5 sticky top-0 h-screen">
+      <div className="hidden lg:block w-[220px] sm:w-[250px] bg-gray-100 border-r border-gray-300 p-5 fixed top-0 left-0 h-screen">
         <div className="space-y-6">
           <h2 className="text-lg font-semibold text-gray-700">Menu</h2>
 
@@ -40,8 +40,8 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-10">
+      {/* Main Content - Prevent Overlap */}
+      <div className="flex-1 p-10 lg:ml-[220px] sm:ml-[250px]">
         <Outlet />
       </div>
     </div>
