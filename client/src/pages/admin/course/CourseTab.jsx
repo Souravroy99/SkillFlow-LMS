@@ -48,6 +48,9 @@ const CourseTab = () => {
 
     // const [publishCourse, {}] = usePublishCourseMutation();
 
+    useEffect(() => {
+        refetch()
+    }, [input])
 
 
     useEffect(() => {
@@ -55,20 +58,20 @@ const CourseTab = () => {
 
         if (course) {
 
-            setInput((prevInput) => ({ ...prevInput,
+            setInput((prevInput) => ({
+                ...prevInput,
                 courseTitle: course.courseTitle,
                 subTitle: course.subTitle,
                 description: course.description,
                 category: course.category,
                 courseLevel: course.courseLevel,
                 coursePrice: course.coursePrice,
-                courseThumbnail: "",
+                courseThumbnail: course.courseThumbnail,
             }));
-
-            
         }
     }, [courseByIdData]);
-    console.log(input.courseTitle);
+
+    console.log(input);
 
     const [previewThumbnail, setPreviewThumbnail] = useState("");
     const navigate = useNavigate();
@@ -91,11 +94,13 @@ const CourseTab = () => {
     // Get File
     const selectThumbnail = (e) => {
         const file = e.target.files?.[0];
+        console.log(` --> `, file);
         if (file) {
             setInput({ ...input, courseThumbnail: file });
             const fileReader = new FileReader();
             fileReader.onloadend = () => setPreviewThumbnail(fileReader.result);
             fileReader.readAsDataURL(file);
+
         }
     };
 
@@ -133,10 +138,14 @@ const CourseTab = () => {
         }
     }, [isSuccess, error]);
 
-    if (courseByIdLoading) return <h1>Loading...</h1>
-
+    if (courseByIdLoading) {
+        return (
+            <div className="flex justify-center items-center h-screen"><Loader2 className="h-10 w-10 animate-spin text-blue-500" /></div>
+        );
+    }
 
     const isPublished = true
+
 
     return (
         <Card>
@@ -157,7 +166,6 @@ const CourseTab = () => {
                 </div>
 
             </CardHeader>
-
 
             <CardContent>
                 <div className="space-y-4 mt-5">
@@ -203,18 +211,10 @@ const CourseTab = () => {
                                         <SelectLabel>Category</SelectLabel>
                                         <SelectItem value="Next JS">Next JS</SelectItem>
                                         <SelectItem value="Data Science">Data Science</SelectItem>
-                                        <SelectItem value="Frontend Development">
-                                            Frontend Development
-                                        </SelectItem>
-                                        <SelectItem value="Backend Development">
-                                            Backend Development
-                                        </SelectItem>
-                                        <SelectItem value="Fullstack Development">
-                                            Fullstack Development
-                                        </SelectItem>
-                                        <SelectItem value="MERN Stack Development">
-                                            MERN Stack Development
-                                        </SelectItem>
+                                        <SelectItem value="Frontend Development">Frontend Development</SelectItem>
+                                        <SelectItem value="Backend Development">Backend Development</SelectItem>
+                                        <SelectItem value="Fullstack Development">Fullstack Development</SelectItem>
+                                        <SelectItem value="MERN Stack Development">MERN Stack Development</SelectItem>
                                         <SelectItem value="Javascript">Javascript</SelectItem>
                                         <SelectItem value="Python">Python</SelectItem>
                                         <SelectItem value="Docker">Docker</SelectItem>
@@ -268,9 +268,9 @@ const CourseTab = () => {
                             className="w-fit"
                             onChange={selectThumbnail}
                         />
-                        {previewThumbnail && (
+                        {(previewThumbnail || input.courseThumbnail) && (
                             <img
-                                src={previewThumbnail}
+                                src={previewThumbnail || input.courseThumbnail}
                                 className="w-64 object-cover rounded-lg my-2"
                                 alt="Course Thumbnail"
                             />

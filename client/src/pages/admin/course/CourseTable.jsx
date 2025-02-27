@@ -17,7 +17,7 @@ import { Badge } from '@/components/ui/badge'
 
 
 const CourseTable = () => {
-    const {data, isLoading, refetch} = useGetCreatorCourseQuery()
+    const { data, isLoading, refetch } = useGetCreatorCourseQuery()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const CourseTable = () => {
 
     // console.log(data) ;
 
-    if(isLoading) return <h1>Loading...</h1>
+    if (isLoading) return <h1>Loading...</h1>
 
     return (
         <div>
@@ -48,7 +48,7 @@ const CourseTable = () => {
                             <TableCell> <Badge>{course?.isPublished ? "Published" : "Draft"}</Badge> </TableCell>
                             <TableCell className="font-medium">{course.courseTitle}</TableCell>
                             <TableCell className="text-right">
-                                <Button size='sm' variant='outline' onClick={() => navigate(`${course._id}`)}><Edit/></Button>
+                                <Button size='sm' variant='outline' onClick={() => navigate(`${course._id}`)}><Edit /></Button>
                             </TableCell>
                         </TableRow>
                     ))}

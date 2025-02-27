@@ -83,11 +83,12 @@ export const editCourse = async(req, res) => {
                 await deleteMediaFromCloudinary(publicId) ; // Delete old image from cloudinary
             }
             
-            courseThumbnail = uploadMedia(thumbnail.path)
+            courseThumbnail = await uploadMedia(thumbnail.path)
         }
 
 
         const updateDatas = {courseTitle, subTitle, description, category, courseLevel, coursePrice, courseThumbnail: courseThumbnail?.secure_url}
+
 
         course = await Course.findByIdAndUpdate(courseId, updateDatas, {new: true})
 
@@ -105,7 +106,6 @@ export const editCourse = async(req, res) => {
         })
     }
 }
-
 
 export const getCourseById = async(req, res) => {
     try {

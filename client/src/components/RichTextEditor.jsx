@@ -9,7 +9,7 @@ const RichTextEditor = ({ input, setInput }) => {
     <ReactQuill
       ref={quillRef}
       value={input.description}
-      onChange={(content) => setInput({ ...input, description: content })}
+      onChange={(content) => setInput({ ...input, description: content || "" })}
     />
   );
 };

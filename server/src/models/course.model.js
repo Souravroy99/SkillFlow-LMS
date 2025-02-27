@@ -15,7 +15,7 @@ const courseSchema = new mongoose.Schema(
         },
         courseLevel: {
             type: String,
-            enum: ["Beginner", "Medium", "Advanced"]
+            enum: ["Beginner", "Medium", "Advance"]
         },
         courseThumbnail: String,
         enrolledStudents: [
@@ -23,7 +23,7 @@ const courseSchema = new mongoose.Schema(
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User"
             }
-        ],
+        ], 
         lectures: [
             {
                 type: mongoose.Schema.Types.ObjectId,
